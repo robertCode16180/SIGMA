@@ -1,0 +1,46 @@
+<ng-container [ngSwitch]="action">
+  <h1 mat-dialog-title *ngSwitchCase="'Agregar'">Nuevo Separador</h1>
+  <h1 mat-dialog-title *ngSwitchCase="'Editar'">Editar Separador</h1>
+  <h1 mat-dialog-title *ngSwitchCase="'Eliminar'">Desea Elimar?</h1>
+</ng-container>
+
+<mat-dialog-content [formGroup]="form" *ngIf="action !== 'Eliminar'; else eliminarItem">
+
+    <mat-form-field appearance="legacy">
+      <input matInput placeholder="Nombre Separador" formControlName="nombre"/>
+      <mat-error *ngIf="formCtrl['nombre'].hasError('required')">
+          Campo requerido
+      </mat-error>
+    </mat-form-field>
+ 
+    <mat-form-field appearance="legacy">
+      <input matInput placeholder="Latitud" formControlName="lat"/>
+      <mat-error *ngIf="formCtrl['lat'].hasError('required')">
+          Campo requerido
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="legacy">
+      <input matInput placeholder="Longitud" formControlName="lng"/>
+      <mat-error *ngIf="formCtrl['lng'].hasError('required')">
+          Campo requerido
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="legacy">
+      <input matInput placeholder="Zoom" formControlName="zoom"/>
+      <mat-error *ngIf="formCtrl['zoom'].hasError('required')">
+          Campo requerido
+      </mat-error>
+    </mat-form-field>
+
+</mat-dialog-content>
+
+<ng-template #eliminarItem>
+  <p>{{localData.nombre}}</p>
+</ng-template>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="doAction()" [disabled]="form.invalid">{{action}}</button>
+  <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
+</div>
